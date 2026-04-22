@@ -1,0 +1,25 @@
+/* Small custom styles on top of Bootstrap */
+body {
+    background-color: #f6f7fb;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.25rem 0.75rem rgba(18, 38, 63, 0.08);
+}
+
+.table thead th {
+    white-space: nowrap;
+}
+
+.hero {
+    background: linear-gradient(120deg, #1f2937, #374151);
+    color: #fff;
+    border-radius: 0.75rem;
+    padding: 2rem;
+}
+
+.footer-note {
+    font-size: 0.85rem;
+    color: #6c757d;
+}

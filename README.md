@@ -50,6 +50,37 @@ Acceptable scope includes, for example:
 
 ---
 
+## Implementation (Maven WAR)
+
+- **Java:** 17 · **Build:** Maven (`pom.xml`) · **Web:** JSP + Servlets (Jakarta EE / Tomcat 10+)
+- **Persistence:** `src/main/webapp/WEB-INF/data/bookings.txt` (tab-separated values)
+- **Deep dive:** see [`docs/HOW_IT_WORKS.md`](docs/HOW_IT_WORKS.md) and [`docs/SAMPLE_BOOKINGS_FORMAT.md`](docs/SAMPLE_BOOKINGS_FORMAT.md)
+
+### Run in IntelliJ IDEA (summary)
+
+1. Open the project as a **Maven** project and set the SDK to **Java 17**.
+2. Add a local **Tomcat 10.x** (or other Servlet 6 / JSP 3.1) server run configuration.
+3. Deploy this module’s **WAR** artifact (`event-booking-system:war`); context path is usually `/event_booking_system` or `/event-booking-system` depending on your Tomcat artifact name.
+4. Run the server and open the configured URL; the welcome page is **`index.jsp`**.
+
+Build from the command line: `mvn clean package` → `target/event-booking-system.war`.
+
+### Source layout
+
+```
+src/main/java/com/eventbooking/
+  model/           Booking, MediaPackage, PhotographyPackage, VideographyPackage
+  service/         BookingService, PackageCatalog
+  util/            BookingFileStore, BookingDataPaths
+  web/             Servlets, AppContext
+src/main/webapp/
+  index.jsp        Home
+  css/app.css      Extra styles
+  WEB-INF/web.xml
+  WEB-INF/data/bookings.txt   Sample + live data file
+  WEB-INF/jsp/     List, form, search, packages views + include/navbar.jspf
+```
+
 ## Repository
 
-Clone this repository and open the project in IntelliJ IDEA. Follow any setup steps added here as the implementation grows (build tool, run configuration, sample data paths).
+Clone this repository and open the project in IntelliJ IDEA.

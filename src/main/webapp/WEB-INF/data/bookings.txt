@@ -1,0 +1,3 @@
+# Tab-separated: bookingId, customerName, phone, eventType, eventDate, location, serviceType, packageName, specialNotes
+BK001	Ama Perera	0771234567	Wedding	2026-05-20	Colombo	Both	Premium Storytelling	Outdoor poru ceremony; second shooter requested.
+BK002	Ruwan Silva	0779876543	Corporate Gala	2026-06-01	Kandy	Videography	Cinematic Package	Include wireless lav mics for speeches.
