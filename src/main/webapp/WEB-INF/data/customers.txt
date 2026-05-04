@@ -1,0 +1,2 @@
+# Tab-separated: customerId, fullName, email, phone, saltB64, passwordHashB64, createdAt
+CU001	Thidas Wickrmasinghe	thidaswickramasinghe8@gmail.com	0777958497	ttsDmgAol2hAP+7np3eAhg==	+Rgph2Y8U3Gb5do/ttg0rooJsiE5DcONeIgFbQb1c/s=	2026-05-04T11:55:36.807220500Z

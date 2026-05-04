@@ -1,20 +1,22 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}" scope="request"/>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand" href="${ctx}/index.jsp">Event Booking</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<c:if test="${empty ctx}">
+    <c:set var="ctx" value="${pageContext.request.contextPath}" scope="request"/>
+</c:if>
+<header class="lc-header">
+    <div class="lc-container lc-header__inner">
+        <a class="lc-logo" href="${ctx}/index.jsp">LensCraft<span>Studio</span></a>
+        <button type="button" class="lc-nav-toggle" data-lc-nav-toggle aria-expanded="false" aria-label="Open menu">
+            <span></span><span></span><span></span>
         </button>
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="${ctx}/index.jsp">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="${ctx}/packages">Packages</a></li>
-                <li class="nav-item"><a class="nav-link" href="${ctx}/bookings/list">All bookings</a></li>
-                <li class="nav-item"><a class="nav-link" href="${ctx}/bookings/create">New booking</a></li>
-                <li class="nav-item"><a class="nav-link" href="${ctx}/bookings/search">Search</a></li>
-            </ul>
-        </div>
+        <nav class="lc-nav-panel" data-lc-nav-panel aria-label="Main">
+            <a href="${ctx}/index.jsp">Home</a>
+            <a href="${ctx}/packages">Packages</a>
+            <a href="${ctx}/index.jsp#gallery">Gallery</a>
+            <a href="${ctx}/index.jsp#about">About</a>
+            <a href="${ctx}/index.jsp#contact">Contact</a>
+            <a href="${ctx}/bookings/list">Dashboard</a>
+            <a href="${ctx}/register">Sign up</a>
+            <a class="lc-nav-cta" href="${ctx}/bookings/create">Book Now</a>
+        </nav>
     </div>
-</nav>
+</header>

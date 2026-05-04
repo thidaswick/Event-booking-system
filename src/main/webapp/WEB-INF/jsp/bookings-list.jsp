@@ -1,91 +1,110 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>All bookings</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${ctx}/css/app.css" rel="stylesheet">
-</head>
-<body>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
+<c:set var="pageTitle" value="Dashboard — LensCraft Studio" scope="request"/>
+<%@ include file="/WEB-INF/jsp/include/head.jspf" %>
 <%@ include file="/WEB-INF/jsp/include/navbar.jspf" %>
-<div class="container pb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h3 mb-0">All bookings</h1>
-        <a class="btn btn-primary" href="${ctx}/bookings/create">New booking</a>
-    </div>
+<style>
+    .lc-bookings-list-head { margin-bottom: 2rem; text-align: center; }
+    .lc-bookings-list-head h1 {
+        font-size: clamp(1.75rem, 3vw, 2.25rem);
+        margin: 0 0 1.25rem;
+    }
+    .lc-bookings-search {
+        display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+        gap: 0.65rem;
+        max-width: 42rem;
+        margin: 0 auto;
+    }
+    .lc-bookings-search__input { flex: 1 1 16rem; min-width: 0; max-width: 28rem; }
+    .lc-bookings-search__btn { flex-shrink: 0; padding-inline: 1.25rem; }
+    .lc-bookings-search__clear { flex-shrink: 0; }
+</style>
 
-    <c:if test="${param.msg == 'created'}">
-        <div class="alert alert-success">Booking created.</div>
-    </c:if>
-    <c:if test="${param.msg == 'updated'}">
-        <div class="alert alert-success">Booking updated.</div>
-    </c:if>
-    <c:if test="${param.msg == 'deleted'}">
-        <div class="alert alert-success">Booking deleted.</div>
-    </c:if>
-    <c:if test="${param.msg == 'deletefailed'}">
-        <div class="alert alert-danger">Could not delete booking.</div>
-    </c:if>
-    <c:if test="${param.msg == 'notfound'}">
-        <div class="alert alert-warning">Booking not found.</div>
-    </c:if>
+<div class="lc-page">
+    <div class="lc-container">
+        <div class="lc-bookings-list-head">
+            <h1>All bookings</h1>
+            <form class="lc-bookings-search" method="get" action="${ctx}/bookings/list" role="search" aria-label="Search bookings">
+                <input type="search" name="q" class="lc-input lc-bookings-search__input"
+                       value="${fn:escapeXml(q)}"
+                       placeholder="Search by booking ID (e.g. BK001) or customer name…"
+                       autocomplete="off">
+                <button type="submit" class="lc-btn lc-btn--gold lc-bookings-search__btn">Search</button>
+                <c:if test="${searchActive}">
+                    <a class="lc-btn-sm lc-bookings-search__clear" href="${ctx}/bookings/list">Clear</a>
+                </c:if>
+            </form>
+        </div>
 
-    <div class="card">
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover mb-0 align-middle">
-                    <thead class="table-light">
+        <c:if test="${param.msg == 'created'}">
+            <div class="lc-alert lc-alert--success">Booking created.</div>
+        </c:if>
+        <c:if test="${param.msg == 'updated'}">
+            <div class="lc-alert lc-alert--success">Booking updated.</div>
+        </c:if>
+        <c:if test="${param.msg == 'deleted'}">
+            <div class="lc-alert lc-alert--success">Booking deleted.</div>
+        </c:if>
+        <c:if test="${param.msg == 'deletefailed'}">
+            <div class="lc-alert lc-alert--danger">Could not delete booking.</div>
+        </c:if>
+        <c:if test="${param.msg == 'notfound'}">
+            <div class="lc-alert lc-alert--warn">Booking not found.</div>
+        </c:if>
+
+        <div class="lc-panel lc-table-wrap">
+            <table class="lc-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Service</th>
+                    <th>Package</th>
+                    <th>Notes</th>
+                    <th class="lc-actions">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="b" items="${bookings}">
                     <tr>
-                        <th>ID</th>
-                        <th>Customer</th>
-                        <th>Phone</th>
-                        <th>Event</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>Service</th>
-                        <th>Package</th>
-                        <th>Notes</th>
-                        <th class="text-end">Actions</th>
+                        <td><code>${b.bookingId}</code></td>
+                        <td>${b.customerName}</td>
+                        <td>${b.phone}</td>
+                        <td>${b.eventType}</td>
+                        <td>${b.eventDate}</td>
+                        <td>${b.location}</td>
+                        <td>${b.serviceType}</td>
+                        <td>${b.packageName}</td>
+                        <td><span class="lc-text-truncate" title="${b.specialNotes}">${b.specialNotes}</span></td>
+                        <td class="lc-actions">
+                            <a class="lc-btn-sm" href="${ctx}/bookings/edit?bookingId=${b.bookingId}">Edit</a>
+                            <form method="post" action="${ctx}/bookings/delete"
+                                  style="display:inline;margin-left:0.35rem" onsubmit="return confirm('Delete booking ${b.bookingId}?');">
+                                <input type="hidden" name="bookingId" value="${b.bookingId}">
+                                <button type="submit" class="lc-btn-sm lc-btn-sm--danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="b" items="${bookings}">
-                        <tr>
-                            <td><code>${b.bookingId}</code></td>
-                            <td>${b.customerName}</td>
-                            <td>${b.phone}</td>
-                            <td>${b.eventType}</td>
-                            <td>${b.eventDate}</td>
-                            <td>${b.location}</td>
-                            <td>${b.serviceType}</td>
-                            <td>${b.packageName}</td>
-                            <td class="text-truncate" style="max-width: 160px;" title="${b.specialNotes}">${b.specialNotes}</td>
-                            <td class="text-end text-nowrap">
-                                <a class="btn btn-sm btn-outline-primary"
-                                   href="${ctx}/bookings/edit?bookingId=${b.bookingId}">Edit</a>
-                                <form class="d-inline" method="post" action="${ctx}/bookings/delete"
-                                      onsubmit="return confirm('Delete booking ${b.bookingId}?');">
-                                    <input type="hidden" name="bookingId" value="${b.bookingId}">
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    <c:if test="${empty bookings}">
-                        <tr>
-                            <td colspan="10" class="text-center text-muted py-4">No bookings yet. Create one to get started.</td>
-                        </tr>
-                    </c:if>
-                    </tbody>
-                </table>
-            </div>
+                </c:forEach>
+                <c:if test="${empty bookings}">
+                    <tr>
+                        <td colspan="10" style="text-align:center;padding:2.5rem;color:var(--muted-foreground)">
+                            <c:choose>
+                                <c:when test="${searchActive}">No bookings match your search.</c:when>
+                                <c:otherwise>No bookings yet. <a href="${ctx}/bookings/create">Create one</a> to get started.</c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </c:if>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+
+<%@ include file="/WEB-INF/jsp/include/footer.jspf" %>

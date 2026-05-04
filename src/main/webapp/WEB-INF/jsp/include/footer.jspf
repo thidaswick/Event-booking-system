@@ -1,0 +1,37 @@
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<footer class="lc-footer">
+    <div class="lc-container lc-footer__grid">
+        <div>
+            <p class="lc-footer__brand">LensCraft<span>Studio</span></p>
+            <p class="lc-footer__tag">Crafting timeless visual stories through cinematic photography and videography for life's most meaningful moments.</p>
+        </div>
+        <div>
+            <h4 class="lc-footer__heading">Explore</h4>
+            <ul class="lc-footer__links">
+                <li><a href="${ctx}/packages">Packages</a></li>
+                <li><a href="${ctx}/register">Sign up</a></li>
+                <li><a href="${ctx}/index.jsp#gallery">Gallery</a></li>
+                <li><a href="${ctx}/index.jsp#about">About</a></li>
+                <li><a href="${ctx}/index.jsp#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="lc-footer__heading">Studio</h4>
+            <ul class="lc-footer__links lc-footer__links--plain">
+                <li>27 Aurora Lane, Colombo</li>
+                <li><a href="tel:+94771234567">+94 77 123 4567</a></li>
+                <li><a href="mailto:hello@lenscraft.studio">hello@lenscraft.studio</a></li>
+                <li>Open Mon – Sat</li>
+            </ul>
+        </div>
+    </div>
+    <div class="lc-footer__bar">
+        <div class="lc-container lc-footer__bar-inner">
+            <span>© 2026 LensCraft Studio. All rights reserved.</span>
+            <span class="lc-footer__fine">Designed with care · Crafted for storytellers</span>
+        </div>
+    </div>
+</footer>
+<script src="<%= request.getContextPath() %>/js/lc-nav.js?v=2"></script>
+</body>
+</html>

@@ -22,8 +22,24 @@ public class BookingListServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         BookingService service = AppContext.bookingService(getServletContext());
-        List<Booking> bookings = service.listAll();
+
+        String q = request.getParameter("q");
+        List<Booking> bookings;
+        boolean searchActive = q != null && !q.isBlank();
+        if (searchActive) {
+            String t = q.trim();
+            if (t.matches("(?i)BK\\d+")) {
+                bookings = service.search(t, "");
+            } else {
+                bookings = service.search("", t);
+            }
+        } else {
+            bookings = service.listAll();
+        }
+
         request.setAttribute("bookings", bookings);
+        request.setAttribute("q", q == null ? "" : q);
+        request.setAttribute("searchActive", searchActive);
         request.getRequestDispatcher("/WEB-INF/jsp/bookings-list.jsp").forward(request, response);
     }
 }

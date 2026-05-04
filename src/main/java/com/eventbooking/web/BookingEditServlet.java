@@ -31,24 +31,30 @@ public class BookingEditServlet extends HttpServlet {
         request.setAttribute("formTitle", "Edit booking");
         request.setAttribute("booking", found.get());
         request.setAttribute("formAction", request.getContextPath() + "/bookings/edit");
+        AppContext.attachCustomersForBookingForm(getServletContext(), request);
         request.getRequestDispatcher("/WEB-INF/jsp/booking-form.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        BookingService service = AppContext.bookingService(getServletContext());
         String id = request.getParameter("bookingId");
+        if (id == null || id.isBlank()) {
+            response.sendRedirect(request.getContextPath() + "/bookings/list?msg=notfound");
+            return;
+        }
+        BookingService service = AppContext.bookingService(getServletContext());
         try {
             Booking updated = readBooking(request, id);
             service.update(updated);
             response.sendRedirect(request.getContextPath() + "/bookings/list?msg=updated");
-        } catch (Exception ex) {
+        } catch (IOException | IllegalArgumentException ex) {
             request.setAttribute("error", "Could not update: " + ex.getMessage());
             request.setAttribute("formTitle", "Edit booking");
             request.setAttribute("booking", repopulate(request, id));
             request.setAttribute("formAction", request.getContextPath() + "/bookings/edit");
+            AppContext.attachCustomersForBookingForm(getServletContext(), request);
             request.getRequestDispatcher("/WEB-INF/jsp/booking-form.jsp").forward(request, response);
         }
     }

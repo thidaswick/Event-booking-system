@@ -1,0 +1,16 @@
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<% request.setAttribute("ctx", request.getContextPath()); %>
+<c:set var="lcTitle" value="${empty requestScope.pageTitle ? 'LensCraft Studio — Cinematic Event Photography & Videography' : requestScope.pageTitle}"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Premium event photography and videography for weddings, engagements, birthdays and corporate events. Book your story today.">
+    <title>${lcTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,300..900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/app.css?v=2">
+</head>
+<body class="lc-body ${empty bodyExtraClass ? '' : bodyExtraClass}">

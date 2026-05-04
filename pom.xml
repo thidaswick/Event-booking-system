@@ -14,6 +14,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
+        <!-- Default avoids "Address already in use" when an old Jetty/Java is still on 9090. -->
+        <!-- PowerShell: quote the whole flag, e.g. mvn jetty:run "-Djetty.http.port=9090" -->
+        <jetty.http.port>9190</jetty.http.port>
     </properties>
 
     <dependencies>
@@ -62,14 +65,14 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- Run locally: mvn jetty:run  →  http://localhost:9090/ (9090 avoids clashes with other apps on 8080) -->
+            <!-- Run: mvn jetty:run → http://localhost:${jetty.http.port}/ -->
             <plugin>
                 <groupId>org.eclipse.jetty.ee10</groupId>
                 <artifactId>jetty-ee10-maven-plugin</artifactId>
                 <version>12.0.16</version>
                 <configuration>
                     <httpConnector>
-                        <port>9090</port>
+                        <port>${jetty.http.port}</port>
                     </httpConnector>
                 </configuration>
             </plugin>

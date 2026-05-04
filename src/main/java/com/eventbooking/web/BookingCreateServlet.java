@@ -23,23 +23,25 @@ public class BookingCreateServlet extends HttpServlet {
         request.setAttribute("formTitle", "New booking");
         request.setAttribute("booking", new Booking());
         request.setAttribute("formAction", request.getContextPath() + "/bookings/create");
+        AppContext.attachCustomersForBookingForm(getServletContext(), request);
         request.getRequestDispatcher("/WEB-INF/jsp/booking-form.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         BookingService service = AppContext.bookingService(getServletContext());
         try {
             Booking input = readBookingFromRequest(request);
             service.createNew(input);
             response.sendRedirect(request.getContextPath() + "/bookings/list?msg=created");
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             request.setAttribute("error", "Could not save booking: " + ex.getMessage());
             request.setAttribute("formTitle", "New booking");
             request.setAttribute("booking", readBookingFromRequest(request));
             request.setAttribute("formAction", request.getContextPath() + "/bookings/create");
+            AppContext.attachCustomersForBookingForm(getServletContext(), request);
             request.getRequestDispatcher("/WEB-INF/jsp/booking-form.jsp").forward(request, response);
         }
     }

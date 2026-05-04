@@ -10,5 +10,19 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!-- Servlets are also annotated with @WebServlet; this file documents mappings for the assignment. -->
+    <!-- Registration servlet is also registered by CustomerRegisterContextListener (Jetty dev robustness). -->
+    <servlet>
+        <servlet-name>CustomerRegisterServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.CustomerRegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerRegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>com.eventbooking.web.CustomerRegisterContextListener</listener-class>
+    </listener>
+
+    <!-- Other servlets use @WebServlet; this file documents mappings for the assignment. -->
 </web-app>
