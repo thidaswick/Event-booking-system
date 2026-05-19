@@ -124,6 +124,24 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
+    /**
+     * True if this row matches search by id (exact) or name/email (contains, case-insensitive).
+     */
+    public boolean matchesSearch(String customerIdQuery, String textQuery) {
+        boolean idMatch = customerIdQuery != null && !customerIdQuery.isBlank()
+                && customerId != null && customerId.equalsIgnoreCase(customerIdQuery.trim());
+        if (idMatch) {
+            return true;
+        }
+        if (textQuery == null || textQuery.isBlank()) {
+            return false;
+        }
+        String q = textQuery.trim().toLowerCase();
+        boolean nameMatch = fullName != null && fullName.toLowerCase().contains(q);
+        boolean emailMatch = email != null && email.toLowerCase().contains(q);
+        return nameMatch || emailMatch;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -13,14 +13,14 @@
             </c:when>
             <c:otherwise>
                 <h1 class="lc-font-display" style="font-size:clamp(1.75rem,3vw,2.25rem);margin:0 0 0.35rem">Create your account</h1>
-                <p class="lc-muted" style="margin-bottom:1.75rem">Join LensCraft to manage bookings and hear from our team faster.</p>
+                <p class="lc-muted" style="margin-bottom:1.75rem">Join LensCraft to manage bookings. Your account is saved in <code>customers.txt</code> (same file storage as bookings).</p>
             </c:otherwise>
         </c:choose>
 
         <c:if test="${param.created == '1'}">
             <div class="lc-alert lc-alert--success">
                 Welcome! Your account is ready<c:if test="${not empty param.id}"> (<c:out value="${param.id}"/>)</c:if>.
-                You can <a href="${ctx}/bookings/create">book a session</a> or return <a href="${ctx}/index.jsp">home</a>.
+                You can <a href="${ctx}/bookings/create">book a session</a>, view <a href="${ctx}/customers/list">all accounts</a>, or return <a href="${ctx}/index.jsp">home</a>.
             </div>
         </c:if>
 

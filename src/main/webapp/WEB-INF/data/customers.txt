@@ -1,2 +1,3 @@
 # Tab-separated: customerId, fullName, email, phone, saltB64, passwordHashB64, createdAt
 CU001	Thidas Wickrmasinghe	thidaswickramasinghe8@gmail.com	0777958497	ttsDmgAol2hAP+7np3eAhg==	+Rgph2Y8U3Gb5do/ttg0rooJsiE5DcONeIgFbQb1c/s=	2026-05-04T11:55:36.807220500Z
+CU002	Tharindu Deshan Dias	tharindudds@gmail.com	0812052706	10I53dcuULZ94vnXSG9HjQ==	50n2vP6lT+CViCypthwrU/QPyZPZ7wlluUX/9/xy3i0=	2026-05-19T12:02:04.641187300Z

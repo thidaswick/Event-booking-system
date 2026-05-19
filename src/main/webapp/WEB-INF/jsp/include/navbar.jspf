@@ -16,6 +16,7 @@
             <a href="${ctx}/contacts/create">Contact</a>
             <a href="${ctx}/bookings/list">Dashboard</a>
             <a href="${ctx}/register">Sign up</a>
+            <a href="${ctx}/customers/list">Accounts</a>
             <a class="lc-nav-cta" href="${ctx}/bookings/create">Book Now</a>
         </nav>
     </div>

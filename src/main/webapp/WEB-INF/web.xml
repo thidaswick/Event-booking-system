@@ -62,5 +62,35 @@
         <listener-class>com.eventbooking.web.ContactServletContextListener</listener-class>
     </listener>
 
+    <!-- Customer accounts CRUD (customers.txt — same file pattern as bookings). -->
+    <servlet>
+        <servlet-name>CustomerListServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.CustomerListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerListServlet</servlet-name>
+        <url-pattern>/customers/list</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CustomerEditServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.CustomerEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerEditServlet</servlet-name>
+        <url-pattern>/customers/edit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CustomerDeleteServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.CustomerDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerDeleteServlet</servlet-name>
+        <url-pattern>/customers/delete</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>com.eventbooking.web.CustomerServletContextListener</listener-class>
+    </listener>
+
     <!-- Other servlets use @WebServlet; this file documents mappings for the assignment. -->
 </web-app>

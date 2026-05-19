@@ -88,7 +88,7 @@
         <div class="lc-gallery">
             <figure><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&q=80" alt="Wedding celebration" width="800" height="1000" loading="lazy"></figure>
             <figure><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=80" alt="Couple portrait" width="800" height="533" loading="lazy"></figure>
-            <figure><img src="https://images.unsplash.com/photo-1492691527719-9d1e07a534b4?w=800&q=80" alt="Photography session" width="800" height="1200" loading="lazy"></figure>
+            <figure><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80" alt="Photography session" width="800" height="1200" loading="lazy"></figure>
             <figure><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80" alt="Corporate event" width="800" height="533" loading="lazy"></figure>
             <figure><img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&q=80" alt="Event details" width="800" height="533" loading="lazy"></figure>
         </div>
