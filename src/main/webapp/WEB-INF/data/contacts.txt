@@ -1,0 +1,2 @@
+# Tab-separated: contactId, fullName, email, phone, subject, message, status, createdAt
+CT001	Amaya Perera	amaya@example.com	0771112233	Wedding photography enquiry	We are planning a garden wedding in Galle in December. Do you have availability for photo and video?	New	2026-05-01T10:30:00Z

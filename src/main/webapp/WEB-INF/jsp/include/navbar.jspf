@@ -13,7 +13,7 @@
             <a href="${ctx}/packages">Packages</a>
             <a href="${ctx}/index.jsp#gallery">Gallery</a>
             <a href="${ctx}/index.jsp#about">About</a>
-            <a href="${ctx}/index.jsp#contact">Contact</a>
+            <a href="${ctx}/contacts/create">Contact</a>
             <a href="${ctx}/bookings/list">Dashboard</a>
             <a href="${ctx}/register">Sign up</a>
             <a class="lc-nav-cta" href="${ctx}/bookings/create">Book Now</a>

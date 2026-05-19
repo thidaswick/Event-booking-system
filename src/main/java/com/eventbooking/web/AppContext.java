@@ -2,9 +2,11 @@ package com.eventbooking.web;
 
 import com.eventbooking.model.Customer;
 import com.eventbooking.service.BookingService;
+import com.eventbooking.service.ContactService;
 import com.eventbooking.service.CustomerService;
 import com.eventbooking.util.BookingDataPaths;
 import com.eventbooking.util.BookingFileStore;
+import com.eventbooking.util.ContactFileStore;
 import com.eventbooking.util.CustomerFileStore;
 
 import jakarta.servlet.ServletContext;
@@ -20,6 +22,7 @@ public final class AppContext {
 
     private static final String KEY = "bookingService";
     private static final String CUSTOMER_KEY = "customerService";
+    private static final String CONTACT_KEY = "contactService";
 
     private AppContext() {
     }
@@ -48,6 +51,20 @@ public final class AppContext {
             CustomerFileStore store = new CustomerFileStore(path);
             CustomerService service = new CustomerService(store);
             servletContext.setAttribute(CUSTOMER_KEY, service);
+            return service;
+        }
+    }
+
+    public static ContactService contactService(ServletContext servletContext) {
+        synchronized (servletContext) {
+            Object existing = servletContext.getAttribute(CONTACT_KEY);
+            if (existing instanceof ContactService) {
+                return (ContactService) existing;
+            }
+            Path path = BookingDataPaths.contactsFile(servletContext);
+            ContactFileStore store = new ContactFileStore(path);
+            ContactService service = new ContactService(store);
+            servletContext.setAttribute(CONTACT_KEY, service);
             return service;
         }
     }

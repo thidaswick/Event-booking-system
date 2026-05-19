@@ -29,4 +29,12 @@ public final class BookingDataPaths {
         }
         return Paths.get(System.getProperty("user.dir"), "bookings-data", "customers.txt");
     }
+
+    public static Path contactsFile(ServletContext context) {
+        String real = context.getRealPath("/WEB-INF/data/contacts.txt");
+        if (real != null) {
+            return Paths.get(real);
+        }
+        return Paths.get(System.getProperty("user.dir"), "bookings-data", "contacts.txt");
+    }
 }

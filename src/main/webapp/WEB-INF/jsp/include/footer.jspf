@@ -12,7 +12,8 @@
                 <li><a href="${ctx}/register">Sign up</a></li>
                 <li><a href="${ctx}/index.jsp#gallery">Gallery</a></li>
                 <li><a href="${ctx}/index.jsp#about">About</a></li>
-                <li><a href="${ctx}/index.jsp#contact">Contact</a></li>
+                <li><a href="${ctx}/contacts/create">Contact</a></li>
+                <li><a href="${ctx}/contacts/list">Messages</a></li>
             </ul>
         </div>
         <div>

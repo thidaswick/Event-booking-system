@@ -124,7 +124,10 @@
         <p class="lc-section__label">Let's create</p>
         <h2 class="lc-section__title">Your story deserves the spotlight.</h2>
         <p class="lc-section__intro">Tell us about your event — we'll craft a bespoke proposal within 24 hours.</p>
-        <a class="lc-btn lc-btn--gold" href="${ctx}/bookings/create">Start your booking</a>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center">
+            <a class="lc-btn lc-btn--gold" href="${ctx}/contacts/create">Contact us</a>
+            <a class="lc-btn" href="${ctx}/bookings/create" style="border:1px solid var(--border)">Start your booking</a>
+        </div>
     </div>
 </section>
 
