@@ -24,5 +24,43 @@
         <listener-class>com.eventbooking.web.CustomerRegisterContextListener</listener-class>
     </listener>
 
+    <!-- Contact CRUD (web.xml + ContactServletContextListener for Jetty dev reliability). -->
+    <servlet>
+        <servlet-name>ContactListServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.ContactListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactListServlet</servlet-name>
+        <url-pattern>/contacts/list</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ContactCreateServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.ContactCreateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactCreateServlet</servlet-name>
+        <url-pattern>/contacts/create</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ContactEditServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.ContactEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactEditServlet</servlet-name>
+        <url-pattern>/contacts/edit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ContactDeleteServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.ContactDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactDeleteServlet</servlet-name>
+        <url-pattern>/contacts/delete</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>com.eventbooking.web.ContactServletContextListener</listener-class>
+    </listener>
+
     <!-- Other servlets use @WebServlet; this file documents mappings for the assignment. -->
 </web-app>
