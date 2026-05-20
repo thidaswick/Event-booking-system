@@ -38,9 +38,6 @@
                 </div>
             </form>
         </div>
-        <p class="lc-hint" style="margin-top:1.25rem;text-align:center">
-            Default: <code>admin@lenscraft.studio</code> / <code>Admin@LensCraft2026</code>
-        </p>
     </div>
 </div>
 
