@@ -34,8 +34,7 @@
                 <%@ include file="/WEB-INF/jsp/include/password-field.jspf" %>
                 <div class="lc-form-actions">
                     <button class="lc-btn lc-btn--gold" type="submit">Sign in</button>
-                    <a class="lc-btn--link" href="${ctx}/index.jsp"
-                       style="text-decoration:none;display:inline-flex;padding:0.5rem 0;font-weight:600;color:var(--muted-foreground)">Back to site</a>
+                    <%@ include file="/WEB-INF/jsp/include/admin-customer-site-btn.jspf" %>
                 </div>
             </form>
         </div>

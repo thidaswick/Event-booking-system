@@ -12,7 +12,7 @@
             <a href="${ctx}/bookings/list">Bookings</a>
             <a href="${ctx}/contacts/list">Messages</a>
             <a href="${ctx}/admin/packages">Packages</a>
-            <a href="${ctx}/index.jsp">Public site</a>
+            <%@ include file="/WEB-INF/jsp/include/admin-customer-site-btn.jspf" %>
             <a class="lc-nav-signout" href="${ctx}/admin/logout">Sign out</a>
         </nav>
     </div>

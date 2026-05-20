@@ -1,0 +1,3 @@
+<%-- Button linking from admin area to the public customer site (home). --%>
+<a class="lc-btn lc-admin-customer-site" href="${ctx}/index.jsp"
+   style="background:var(--card);color:var(--foreground);border:1px solid var(--border);text-decoration:none;padding:0.5rem 1rem;font-size:0.8125rem;white-space:nowrap">View customer site</a>

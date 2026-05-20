@@ -44,6 +44,7 @@
             <a class="lc-btn" href="${ctx}/admin/packages" style="border:1px solid var(--border)">Manage packages</a>
             <a class="lc-btn" href="${ctx}/bookings/list" style="border:1px solid var(--border)">All bookings</a>
             <a class="lc-btn" href="${ctx}/contacts/list" style="border:1px solid var(--border)">Contact messages</a>
+            <%@ include file="/WEB-INF/jsp/include/admin-customer-site-btn.jspf" %>
         </div>
     </div>
 </div>
