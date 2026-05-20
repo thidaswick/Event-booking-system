@@ -37,6 +37,7 @@ public class ContactListServlet extends HttpServlet {
         request.setAttribute("contacts", contacts);
         request.setAttribute("q", q == null ? "" : q);
         request.setAttribute("searchActive", searchActive);
+        request.setAttribute("adminArea", AdminSession.isLoggedIn(request));
         request.getRequestDispatcher("/WEB-INF/jsp/contacts-list.jsp").forward(request, response);
     }
 }

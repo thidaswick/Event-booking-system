@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <c:set var="pageTitle" value="Admin sign in — LensCraft Studio" scope="request"/>
+<c:set var="adminArea" value="true" scope="request"/>
 <%@ include file="/WEB-INF/jsp/include/head.jspf" %>
 
 <div class="lc-page">
@@ -11,6 +12,9 @@
         <c:if test="${param.msg == 'loggedout'}">
             <div class="lc-alert lc-alert--success">Signed out.</div>
         </c:if>
+        <c:if test="${param.msg == 'useadmin'}">
+            <div class="lc-alert lc-alert--warn">Admin accounts cannot sign in on the customer page. Use this form instead.</div>
+        </c:if>
         <c:if test="${not empty error}">
             <div class="lc-alert lc-alert--danger">${error}</div>
         </c:if>
@@ -20,13 +24,14 @@
                 <div class="lc-field">
                     <label for="email">Admin email</label>
                     <input class="lc-input" id="email" name="email" type="email" required
-                           value="${email}" placeholder="admin@lenscraft.studio" autocomplete="username">
+                           value="${not empty email ? email : param.email}" placeholder="admin@lenscraft.studio" autocomplete="username">
                 </div>
-                <div class="lc-field">
-                    <label for="password">Password</label>
-                    <input class="lc-input" id="password" name="password" type="password" required
-                           autocomplete="current-password">
-                </div>
+                <c:set var="pwId" value="password"/>
+                <c:set var="pwName" value="password"/>
+                <c:set var="pwLabel" value="Password"/>
+                <c:set var="pwRequired" value="true"/>
+                <c:set var="pwAutocomplete" value="current-password"/>
+                <%@ include file="/WEB-INF/jsp/include/password-field.jspf" %>
                 <div class="lc-form-actions">
                     <button class="lc-btn lc-btn--gold" type="submit">Sign in</button>
                     <a class="lc-btn--link" href="${ctx}/index.jsp"

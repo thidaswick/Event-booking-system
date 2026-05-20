@@ -1,6 +1,7 @@
 package com.eventbooking.web;
 
 import com.eventbooking.model.Customer;
+import com.eventbooking.service.AdminService;
 import com.eventbooking.service.CustomerService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -37,6 +38,13 @@ public class CustomerLoginServlet extends HttpServlet {
         }
         char[] pw = password.toCharArray();
         try {
+            AdminService adminService = AppContext.adminService(getServletContext());
+            if (adminService.isAdminEmail(email)) {
+                response.sendRedirect(request.getContextPath() + "/admin/login?email="
+                        + java.net.URLEncoder.encode(email.trim(), java.nio.charset.StandardCharsets.UTF_8)
+                        + "&msg=useadmin");
+                return;
+            }
             CustomerService service = AppContext.customerService(getServletContext());
             var found = service.authenticate(email, pw);
             if (found.isEmpty()) {

@@ -152,5 +152,43 @@
         <listener-class>com.eventbooking.web.AdminServletContextListener</listener-class>
     </listener>
 
+    <!-- Admin package CRUD (packages.txt → public /packages page) -->
+    <servlet>
+        <servlet-name>AdminPackageListServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.AdminPackageListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminPackageListServlet</servlet-name>
+        <url-pattern>/admin/packages</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminPackageCreateServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.AdminPackageCreateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminPackageCreateServlet</servlet-name>
+        <url-pattern>/admin/packages/create</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminPackageEditServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.AdminPackageEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminPackageEditServlet</servlet-name>
+        <url-pattern>/admin/packages/edit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminPackageDeleteServlet</servlet-name>
+        <servlet-class>com.eventbooking.web.AdminPackageDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminPackageDeleteServlet</servlet-name>
+        <url-pattern>/admin/packages/delete</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>com.eventbooking.web.PackageServletContextListener</listener-class>
+    </listener>
+
     <!-- Other servlets use @WebServlet; this file documents mappings for the assignment. -->
 </web-app>

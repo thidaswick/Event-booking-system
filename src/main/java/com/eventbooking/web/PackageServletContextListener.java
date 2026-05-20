@@ -5,15 +5,14 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.ServletRegistration;
 
-public class AdminServletContextListener implements ServletContextListener {
+/**
+ * Ensures admin package CRUD URLs are mapped when {@code @WebServlet} metadata is not picked up by Jetty.
+ */
+public class PackageServletContextListener implements ServletContextListener {
 
     private record Mapping(String name, Class<? extends jakarta.servlet.http.HttpServlet> servlet, String path) {}
 
     private static final Mapping[] MAPPINGS = {
-            new Mapping("AdminLoginServlet", AdminLoginServlet.class, "/admin/login"),
-            new Mapping("AdminLogoutServlet", AdminLogoutServlet.class, "/admin/logout"),
-            new Mapping("AdminDashboardServlet", AdminDashboardServlet.class, "/admin/dashboard"),
-            new Mapping("AdminCustomerListServlet", AdminCustomerListServlet.class, "/admin/customers"),
             new Mapping("AdminPackageListServlet", AdminPackageListServlet.class, "/admin/packages"),
             new Mapping("AdminPackageCreateServlet", AdminPackageCreateServlet.class, "/admin/packages/create"),
             new Mapping("AdminPackageEditServlet", AdminPackageEditServlet.class, "/admin/packages/edit"),

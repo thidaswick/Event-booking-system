@@ -1,0 +1,11 @@
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%-- Expects ${pkg} as StudioPackage. Card layout matches customer package template. --%>
+<article class="lc-package-card lc-card-soft">
+    <h2 class="lc-package-card__title lc-font-display">${pkg.title}</h2>
+    <div class="lc-package-card__badges">
+        <span class="lc-badge">${pkg.code}</span>
+        <span class="lc-badge lc-badge--gold">${pkg.priceLabel}</span>
+    </div>
+    <p class="lc-package-card__summary">${pkg.summary}</p>
+    <p class="lc-package-card__deliverables"><strong>Deliverables:</strong> ${pkg.deliverables}</p>
+</article>

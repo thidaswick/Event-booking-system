@@ -29,6 +29,7 @@ public class BookingCreateServlet extends HttpServlet {
         request.setAttribute("booking", booking);
         request.setAttribute("formAction", request.getContextPath() + "/bookings/create");
         AppContext.attachCustomersForBookingForm(getServletContext(), request);
+        AppContext.attachPackagesForBookingForm(getServletContext(), request);
         request.getRequestDispatcher("/WEB-INF/jsp/booking-form.jsp").forward(request, response);
     }
 
@@ -52,6 +53,7 @@ public class BookingCreateServlet extends HttpServlet {
             request.setAttribute("booking", input);
             request.setAttribute("formAction", request.getContextPath() + "/bookings/create");
             AppContext.attachCustomersForBookingForm(getServletContext(), request);
+            AppContext.attachPackagesForBookingForm(getServletContext(), request);
             request.getRequestDispatcher("/WEB-INF/jsp/booking-form.jsp").forward(request, response);
         }
     }

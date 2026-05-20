@@ -17,6 +17,7 @@ public class AdminFileStore {
     }
 
     public synchronized Optional<AdminAccount> readAdmin() throws IOException {
+        ensureDefaultAdminFile();
         if (!Files.exists(dataFile)) {
             return Optional.empty();
         }
@@ -32,5 +33,21 @@ public class AdminFileStore {
             }
         }
         return Optional.empty();
+    }
+
+    private void ensureDefaultAdminFile() throws IOException {
+        if (Files.exists(dataFile)) {
+            return;
+        }
+        Path parent = dataFile.getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
+        String defaultLine = "admin@lenscraft.studio"
+                + "\t3IYOAqvJTh4pErxVwoagLA==\tvaFm5Afqlo52A2ftRRhFDjodOPct+W73Mvn1vpW3Q7c=";
+        Files.writeString(dataFile,
+                "# Tab-separated: email, saltB64, passwordHashB64 (single studio admin account)\n"
+                        + defaultLine + "\n",
+                StandardCharsets.UTF_8);
     }
 }

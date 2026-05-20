@@ -8,23 +8,20 @@
     <div class="lc-container">
         <p class="lc-section__label">What we do</p>
         <h1 class="lc-section__title">Available packages</h1>
-        <p class="lc-muted" style="max-width:40rem;margin-bottom:2.5rem">These offerings are represented as <code>MediaPackage</code> subtypes in Java (inheritance + polymorphism). When you <a href="${ctx}/bookings/create">create a booking</a>, pick a package name that matches your choice, or type your own label.</p>
+        <p class="lc-muted lc-packages-intro">Choose a package that fits your event. When you <a href="${ctx}/bookings/create">book a session</a>, enter the package title shown below.</p>
 
-        <div class="lc-grid-4">
-            <c:forEach var="p" items="${packages}">
-                <article class="lc-card-soft lc-package-card">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:0.75rem;flex-wrap:wrap">
-                        <div>
-                            <h2 class="lc-font-display" style="font-size:1.2rem;margin:0 0 0.35rem">${p.title}</h2>
-                            <span class="lc-badge">${p.code}</span>
-                        </div>
-                        <span class="lc-badge lc-badge--gold">${p.priceLabel}</span>
-                    </div>
-                    <p style="margin:0;font-size:0.95rem;color:var(--muted-foreground)">${p.summary}</p>
-                    <p style="margin:0;font-size:0.85rem;color:var(--muted-foreground)"><strong style="color:var(--foreground)">Deliverables:</strong> ${p.deliverables}</p>
-                </article>
-            </c:forEach>
-        </div>
+        <c:choose>
+            <c:when test="${empty packages}">
+                <p class="lc-muted">Packages are being updated. Please check back soon or <a href="${ctx}/contacts/create">contact us</a>.</p>
+            </c:when>
+            <c:otherwise>
+                <div class="lc-grid-4 lc-packages-grid">
+                    <c:forEach var="pkg" items="${packages}">
+                        <%@ include file="/WEB-INF/jsp/include/package-card.jspf" %>
+                    </c:forEach>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 

@@ -45,4 +45,12 @@ public final class BookingDataPaths {
         }
         return Paths.get(System.getProperty("user.dir"), "bookings-data", "admin.txt");
     }
+
+    public static Path packagesFile(ServletContext context) {
+        String real = context.getRealPath("/WEB-INF/data/packages.txt");
+        if (real != null) {
+            return Paths.get(real);
+        }
+        return Paths.get(System.getProperty("user.dir"), "bookings-data", "packages.txt");
+    }
 }

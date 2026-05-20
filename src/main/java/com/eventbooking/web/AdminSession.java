@@ -45,4 +45,8 @@ public final class AdminSession {
     public static String customersRedirect(HttpServletRequest request, String msg) {
         return request.getContextPath() + "/admin/customers?msg=" + msg;
     }
+
+    public static String packagesRedirect(HttpServletRequest request, String msg) {
+        return request.getContextPath() + "/admin/packages?msg=" + msg;
+    }
 }

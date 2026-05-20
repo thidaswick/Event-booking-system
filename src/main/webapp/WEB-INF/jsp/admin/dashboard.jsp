@@ -33,10 +33,15 @@
                 <p class="lc-admin-stat__num">${contactCount}</p>
                 <p class="lc-admin-stat__lbl">Contact messages</p>
             </div>
+            <div class="lc-admin-stat">
+                <p class="lc-admin-stat__num">${packageCount}</p>
+                <p class="lc-admin-stat__lbl">Packages</p>
+            </div>
         </div>
         <h2 style="font-size:1.1rem;margin:0 0 1rem">Quick actions</h2>
         <div class="lc-admin-links">
             <a class="lc-btn lc-btn--gold" href="${ctx}/admin/customers">Manage customers</a>
+            <a class="lc-btn" href="${ctx}/admin/packages" style="border:1px solid var(--border)">Manage packages</a>
             <a class="lc-btn" href="${ctx}/bookings/list" style="border:1px solid var(--border)">All bookings</a>
             <a class="lc-btn" href="${ctx}/contacts/list" style="border:1px solid var(--border)">Contact messages</a>
         </div>

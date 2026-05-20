@@ -3,7 +3,10 @@
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <c:set var="pageTitle" value="Contact messages — LensCraft Studio" scope="request"/>
 <%@ include file="/WEB-INF/jsp/include/head.jspf" %>
-<%@ include file="/WEB-INF/jsp/include/navbar.jspf" %>
+<c:choose>
+    <c:when test="${adminArea}"><%@ include file="/WEB-INF/jsp/include/admin-navbar.jspf" %></c:when>
+    <c:otherwise><%@ include file="/WEB-INF/jsp/include/navbar.jspf" %></c:otherwise>
+</c:choose>
 <style>
     .lc-contacts-list-head { margin-bottom: 2rem; text-align: center; }
     .lc-contacts-list-head h1 {

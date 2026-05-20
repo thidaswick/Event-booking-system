@@ -3,6 +3,7 @@ package com.eventbooking.web;
 import com.eventbooking.service.BookingService;
 import com.eventbooking.service.ContactService;
 import com.eventbooking.service.CustomerService;
+import com.eventbooking.service.PackageService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,10 +24,12 @@ public class AdminDashboardServlet extends HttpServlet {
         CustomerService customers = AppContext.customerService(getServletContext());
         BookingService bookings = AppContext.bookingService(getServletContext());
         ContactService contacts = AppContext.contactService(getServletContext());
+        PackageService packages = AppContext.packageService(getServletContext());
 
         request.setAttribute("customerCount", customers.listAll().size());
         request.setAttribute("bookingCount", bookings.listAll().size());
         request.setAttribute("contactCount", contacts.listAll().size());
+        request.setAttribute("packageCount", packages.listAll().size());
         request.setAttribute("pageTitle", "Admin dashboard — LensCraft Studio");
         request.getRequestDispatcher("/WEB-INF/jsp/admin/dashboard.jsp").forward(request, response);
     }

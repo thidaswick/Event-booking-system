@@ -1,4 +1,5 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<c:set var="adminArea" value="true" scope="request"/>
 <c:if test="${empty ctx}">
     <c:set var="ctx" value="${pageContext.request.contextPath}" scope="request"/>
 </c:if>
@@ -10,6 +11,7 @@
             <a href="${ctx}/admin/customers">Customers</a>
             <a href="${ctx}/bookings/list">Bookings</a>
             <a href="${ctx}/contacts/list">Messages</a>
+            <a href="${ctx}/admin/packages">Packages</a>
             <a href="${ctx}/index.jsp">Public site</a>
             <a class="lc-nav-signout" href="${ctx}/admin/logout">Sign out</a>
         </nav>

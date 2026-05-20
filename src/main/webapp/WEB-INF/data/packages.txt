@@ -1,0 +1,6 @@
+# Tab-separated: packageId, code, title, priceLabel, summary, deliverables
+PKG001	PH-BASIC	Essential Photos	From LKR 45,000 (sample)	On-site coverage: 4h, edited stills: 150	Online gallery + print-ready exports
+PKG002	PH-PREMIUM	Premium Storytelling	From LKR 85,000 (sample)	On-site coverage: 8h, edited stills: 350	Online gallery + print-ready exports + premium album layout
+PKG003	VD-HIGHLIGHT	Highlight Reel	From LKR 55,000 (sample)	Highlight film: 5 min — Ground cameras only	4K master + social cuts (vertical)
+PKG004	VD-CINEMA	Cinematic Package	From LKR 120,000 (sample)	Highlight film: 8 min — Includes drone add-on	4K master + social cuts (vertical)
+PKG005	PH-3306	Village shoots	35000	coverd whole shoot	Online galary

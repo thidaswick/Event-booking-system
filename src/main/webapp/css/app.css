@@ -957,6 +957,42 @@ img {
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--gold) 22%, transparent);
 }
 
+.lc-password-field {
+    position: relative;
+}
+
+.lc-password-field .lc-input {
+    padding-right: 3.25rem;
+}
+
+.lc-password-field__toggle {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    padding: 0.35rem 0.5rem;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.lc-password-field__toggle:hover {
+    color: var(--foreground);
+    background: color-mix(in oklab, var(--muted) 60%, transparent);
+}
+
+.lc-password-field__toggle:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
 .lc-form textarea {
     resize: vertical;
     min-height: 5rem;
@@ -1007,10 +1043,60 @@ img {
     color: var(--gold-foreground);
 }
 
+.lc-packages-intro {
+    max-width: 40rem;
+    margin-bottom: 2.5rem;
+}
+
+.lc-packages-grid {
+    align-items: stretch;
+}
+
 .lc-package-card {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.65rem;
+    padding: 1.35rem 1.5rem;
+    height: 100%;
+}
+
+.lc-package-card__title {
+    font-size: 1.35rem;
+    line-height: 1.25;
+    margin: 0;
+    color: var(--foreground);
+}
+
+.lc-package-card__badges {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+}
+
+.lc-package-card__badges .lc-badge--gold {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.65rem;
+    letter-spacing: 0.05em;
+}
+
+.lc-package-card__summary {
+    margin: 0.15rem 0 0;
+    font-size: 0.95rem;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+}
+
+.lc-package-card__deliverables {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--muted-foreground);
+    line-height: 1.45;
+}
+
+.lc-package-card__deliverables strong {
+    color: var(--foreground);
+    font-weight: 600;
 }
 
 .lc-package-card .lc-price {

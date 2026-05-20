@@ -9,7 +9,9 @@
             <h4 class="lc-footer__heading">Explore</h4>
             <ul class="lc-footer__links">
                 <li><a href="${ctx}/packages">Packages</a></li>
-                <li><a href="${ctx}/register">Sign up</a></li>
+                <c:if test="${empty adminArea}">
+                    <li><a href="${ctx}/register">Sign up</a></li>
+                </c:if>
                 <li><a href="${ctx}/index.jsp#gallery">Gallery</a></li>
                 <li><a href="${ctx}/index.jsp#about">About</a></li>
                 <li><a href="${ctx}/contacts/create">Contact</a></li>
@@ -34,5 +36,6 @@
     </div>
 </footer>
 <script src="<%= request.getContextPath() %>/js/lc-nav.js?v=2"></script>
+<script src="<%= request.getContextPath() %>/js/password-toggle.js?v=1" defer></script>
 </body>
 </html>

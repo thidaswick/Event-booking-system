@@ -11,19 +11,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Shows packages stored in packages.txt (managed by admin).
- */
-@WebServlet(name = "PackagesServlet", urlPatterns = "/packages")
-public class PackagesServlet extends HttpServlet {
+@WebServlet(name = "AdminPackageListServlet", urlPatterns = "/admin/packages")
+public class AdminPackageListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!AdminSession.requireAdmin(request, response)) {
+            return;
+        }
         request.setCharacterEncoding("UTF-8");
         PackageService service = AppContext.packageService(getServletContext());
         List<StudioPackage> packages = service.listAll();
         request.setAttribute("packages", packages);
-        request.getRequestDispatcher("/WEB-INF/jsp/packages.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/admin/packages-list.jsp").forward(request, response);
     }
 }

@@ -95,10 +95,9 @@
                            value="${booking.packageName}" list="packageOptions"
                            placeholder="Match a package title or your custom label">
                     <datalist id="packageOptions">
-                        <option value="Essential Photos"></option>
-                        <option value="Premium Storytelling"></option>
-                        <option value="Highlight Reel"></option>
-                        <option value="Cinematic Package"></option>
+                        <c:forEach var="p" items="${packages}">
+                            <option value="${p.title}"></option>
+                        </c:forEach>
                     </datalist>
                 </div>
                 <div class="lc-field">
