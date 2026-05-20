@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
-<c:set var="pageTitle" value="Dashboard — LensCraft Studio" scope="request"/>
+<c:set var="pageTitle" value="All bookings — Admin" scope="request"/>
 <%@ include file="/WEB-INF/jsp/include/head.jspf" %>
-<%@ include file="/WEB-INF/jsp/include/navbar.jspf" %>
+<%@ include file="/WEB-INF/jsp/include/admin-navbar.jspf" %>
 <style>
     .lc-bookings-list-head { margin-bottom: 2rem; text-align: center; }
     .lc-bookings-list-head h1 {
@@ -24,7 +24,7 @@
 <div class="lc-page">
     <div class="lc-container">
         <div class="lc-bookings-list-head">
-            <h1>All bookings</h1>
+            <h1>All bookings (admin)</h1>
             <form class="lc-bookings-search" method="get" action="${ctx}/bookings/list" role="search" aria-label="Search bookings">
                 <input type="search" name="q" class="lc-input lc-bookings-search__input"
                        value="${fn:escapeXml(q)}"

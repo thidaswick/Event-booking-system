@@ -1,0 +1,2 @@
+# Tab-separated: email, saltB64, passwordHashB64 (single studio admin account)
+admin@lenscraft.studio	3IYOAqvJTh4pErxVwoagLA==	vaFm5Afqlo52A2ftRRhFDjodOPct+W73Mvn1vpW3Q7c=

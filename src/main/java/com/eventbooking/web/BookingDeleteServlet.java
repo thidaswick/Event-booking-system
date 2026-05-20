@@ -17,6 +17,9 @@ public class BookingDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        if (!AdminSession.requireAdmin(request, response)) {
+            return;
+        }
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("bookingId");
         BookingService service = AppContext.bookingService(getServletContext());

@@ -2,7 +2,10 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <c:set var="pageTitle" value="${formTitle} — LensCraft Studio" scope="request"/>
 <%@ include file="/WEB-INF/jsp/include/head.jspf" %>
-<%@ include file="/WEB-INF/jsp/include/navbar.jspf" %>
+<c:choose>
+    <c:when test="${fromAdmin}"><%@ include file="/WEB-INF/jsp/include/admin-navbar.jspf" %></c:when>
+    <c:otherwise><%@ include file="/WEB-INF/jsp/include/navbar.jspf" %></c:otherwise>
+</c:choose>
 
 <div class="lc-page">
     <div class="lc-container lc-form-wrap">
@@ -16,6 +19,7 @@
         <div class="lc-panel">
             <form class="lc-form" method="post" action="${formAction}" autocomplete="off">
                 <input type="hidden" name="customerId" value="${customer.customerId}">
+                <c:if test="${fromAdmin}"><input type="hidden" name="from" value="admin"></c:if>
                 <div class="lc-field">
                     <label>Account ID</label>
                     <input class="lc-input" type="text" value="${customer.customerId}" disabled>
@@ -47,7 +51,7 @@
                 </div>
                 <div class="lc-form-actions">
                     <button class="lc-btn lc-btn--gold" type="submit">Save changes</button>
-                    <a class="lc-btn--link" href="${ctx}/customers/list"
+                    <a class="lc-btn--link" href="${fromAdmin ? ctx.concat('/admin/customers') : ctx.concat('/register')}"
                        style="text-decoration:none;display:inline-flex;padding:0.5rem 0;font-weight:600;color:var(--muted-foreground)">Cancel</a>
                 </div>
             </form>

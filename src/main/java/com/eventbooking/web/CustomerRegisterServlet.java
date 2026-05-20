@@ -44,8 +44,8 @@ public class CustomerRegisterServlet extends HttpServlet {
             char[] pw = password.toCharArray();
             try {
                 Customer created = service.register(fullName, email, phone, pw);
-                response.sendRedirect(request.getContextPath()
-                        + "/customers/list?msg=created&id=" + created.getCustomerId());
+                CustomerSession.login(request, created);
+                response.sendRedirect(request.getContextPath() + "/account?welcome=1");
             } finally {
                 java.util.Arrays.fill(pw, '\0');
             }

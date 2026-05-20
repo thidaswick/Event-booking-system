@@ -18,20 +18,32 @@ import java.util.Optional;
 @WebServlet(name = "CustomerEditServlet", urlPatterns = "/customers/edit")
 public class CustomerEditServlet extends HttpServlet {
 
+    private static boolean fromAdmin(HttpServletRequest request) {
+        return "admin".equals(request.getParameter("from"));
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        boolean admin = fromAdmin(request);
+        if (admin && !AdminSession.requireAdmin(request, response)) {
+            return;
+        }
         String id = request.getParameter("customerId");
         CustomerService service = AppContext.customerService(getServletContext());
         Optional<Customer> found = service.findById(id == null ? "" : id);
         if (found.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/customers/list?msg=notfound");
+            response.sendRedirect(admin
+                    ? AdminSession.customersRedirect(request, "notfound")
+                    : request.getContextPath() + "/register?msg=notfound");
             return;
         }
-        request.setAttribute("formTitle", "Edit account");
+        request.setAttribute("fromAdmin", admin);
+        request.setAttribute("formTitle", admin ? "Edit customer (admin)" : "Edit account");
         request.setAttribute("customer", found.get());
-        request.setAttribute("formAction", request.getContextPath() + "/customers/edit");
+        request.setAttribute("formAction", request.getContextPath() + "/customers/edit"
+                + (admin ? "?from=admin" : ""));
         request.getRequestDispatcher("/WEB-INF/jsp/customer-form.jsp").forward(request, response);
     }
 
@@ -39,16 +51,22 @@ public class CustomerEditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        boolean admin = fromAdmin(request);
+        if (admin && !AdminSession.requireAdmin(request, response)) {
+            return;
+        }
         String id = request.getParameter("customerId");
         if (id == null || id.isBlank()) {
-            response.sendRedirect(request.getContextPath() + "/customers/list?msg=notfound");
+            response.sendRedirect(admin
+                    ? AdminSession.customersRedirect(request, "notfound")
+                    : request.getContextPath() + "/register?msg=notfound");
             return;
         }
 
         String password = request.getParameter("password");
         String confirm = request.getParameter("confirmPassword");
         if (password != null && !password.isBlank() && !password.equals(confirm)) {
-            forwardWithError(request, response, id, "Passwords do not match.");
+            forwardWithError(request, response, id, admin, "Passwords do not match.");
             return;
         }
 
@@ -58,23 +76,25 @@ public class CustomerEditServlet extends HttpServlet {
             try {
                 service.update(id, request.getParameter("fullName"), request.getParameter("email"),
                         request.getParameter("phone"), pw);
-                response.sendRedirect(request.getContextPath() + "/customers/list?msg=updated");
+                response.sendRedirect(admin
+                        ? AdminSession.customersRedirect(request, "updated")
+                        : request.getContextPath() + "/register?msg=updated");
             } finally {
                 if (pw.length > 0) {
                     java.util.Arrays.fill(pw, '\0');
                 }
             }
         } catch (IllegalArgumentException ex) {
-            forwardWithError(request, response, id, ex.getMessage());
+            forwardWithError(request, response, id, admin, ex.getMessage());
         } catch (GeneralSecurityException ex) {
-            forwardWithError(request, response, id, "Could not update password. Try again.");
+            forwardWithError(request, response, id, admin, "Could not update password. Try again.");
         } catch (IOException ex) {
-            forwardWithError(request, response, id, "Could not save account: " + ex.getMessage());
+            forwardWithError(request, response, id, admin, "Could not save account: " + ex.getMessage());
         }
     }
 
     private void forwardWithError(HttpServletRequest request, HttpServletResponse response,
-                                  String customerId, String error)
+                                  String customerId, boolean admin, String error)
             throws ServletException, IOException {
         Customer c = new Customer();
         c.setCustomerId(customerId);
@@ -82,9 +102,11 @@ public class CustomerEditServlet extends HttpServlet {
         c.setEmail(request.getParameter("email"));
         c.setPhone(request.getParameter("phone"));
         request.setAttribute("error", error);
-        request.setAttribute("formTitle", "Edit account");
+        request.setAttribute("fromAdmin", admin);
+        request.setAttribute("formTitle", admin ? "Edit customer (admin)" : "Edit account");
         request.setAttribute("customer", c);
-        request.setAttribute("formAction", request.getContextPath() + "/customers/edit");
+        request.setAttribute("formAction", request.getContextPath() + "/customers/edit"
+                + (admin ? "?from=admin" : ""));
         request.getRequestDispatcher("/WEB-INF/jsp/customer-form.jsp").forward(request, response);
     }
 }

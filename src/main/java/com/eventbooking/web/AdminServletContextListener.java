@@ -5,16 +5,15 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.ServletRegistration;
 
-/**
- * Ensures customer edit/delete URLs work under embedded Jetty ({@code mvn jetty:run}).
- */
-public class CustomerServletContextListener implements ServletContextListener {
+public class AdminServletContextListener implements ServletContextListener {
 
     private record Mapping(String name, Class<? extends jakarta.servlet.http.HttpServlet> servlet, String path) {}
 
     private static final Mapping[] MAPPINGS = {
-            new Mapping("CustomerEditServlet", CustomerEditServlet.class, "/customers/edit"),
-            new Mapping("CustomerDeleteServlet", CustomerDeleteServlet.class, "/customers/delete"),
+            new Mapping("AdminLoginServlet", AdminLoginServlet.class, "/admin/login"),
+            new Mapping("AdminLogoutServlet", AdminLogoutServlet.class, "/admin/logout"),
+            new Mapping("AdminDashboardServlet", AdminDashboardServlet.class, "/admin/dashboard"),
+            new Mapping("AdminCustomerListServlet", AdminCustomerListServlet.class, "/admin/customers"),
     };
 
     @Override

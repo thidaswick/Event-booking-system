@@ -24,12 +24,11 @@ Registered sign-up accounts are stored as **one line per customer** in `WEB-INF/
 CU001	Ama Perera	ama@example.com	0771234567	<base64 salt>	<base64 hash>	2026-05-20T10:00:00Z
 ```
 
-## Web UI (CRUD)
+## Web UI
 
 | Operation | URL |
 |-----------|-----|
 | Create (sign up) | `/register` |
-| Read (list / search) | `/customers/list` |
 | Update | `/customers/edit?customerId=CU001` |
 | Delete | POST `/customers/delete` |
 

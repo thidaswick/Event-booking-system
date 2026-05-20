@@ -14,9 +14,16 @@
             <a href="${ctx}/index.jsp#gallery">Gallery</a>
             <a href="${ctx}/index.jsp#about">About</a>
             <a href="${ctx}/contacts/create">Contact</a>
-            <a href="${ctx}/bookings/list">Dashboard</a>
-            <a href="${ctx}/register">Sign up</a>
-            <a href="${ctx}/customers/list">Accounts</a>
+            <c:choose>
+                <c:when test="${not empty sessionScope.customerId}">
+                    <a href="${ctx}/account">My account</a>
+                    <a class="lc-nav-signout" href="${ctx}/logout">Sign out</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="${ctx}/login">Sign in</a>
+                    <a href="${ctx}/register">Sign up</a>
+                </c:otherwise>
+            </c:choose>
             <a class="lc-nav-cta" href="${ctx}/bookings/create">Book Now</a>
         </nav>
     </div>

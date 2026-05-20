@@ -5,6 +5,12 @@
 <%@ include file="/WEB-INF/jsp/include/head.jspf" %>
 <%@ include file="/WEB-INF/jsp/include/navbar.jspf" %>
 
+<c:if test="${param.msg == 'bookingcreated'}">
+    <div class="lc-container" style="padding-top:1rem">
+        <p class="lc-alert lc-alert--success" role="status">Your booking was submitted. We will be in touch soon.</p>
+    </div>
+</c:if>
+
 <section class="lc-hero">
     <div class="lc-hero__bg" aria-hidden="true"></div>
     <img class="lc-hero__img" src="${ctx}/images/hero.jpg" alt="LensCraft photographer at a luxurious wedding">

@@ -58,7 +58,7 @@ public class BookingFileStore {
             Files.createDirectories(parent);
         }
         List<String> lines = new ArrayList<>();
-        lines.add("# Tab-separated: bookingId, customerName, phone, eventType, eventDate, location, serviceType, packageName, specialNotes");
+        lines.add("# Tab-separated: bookingId, customerName, phone, eventType, eventDate, location, serviceType, packageName, specialNotes, customerId");
         for (Booking b : bookings) {
             lines.add(b.toTsvLine());
         }

@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<c:set var="pageTitle" value="Search bookings — LensCraft Studio" scope="request"/>
+<c:set var="pageTitle" value="Search bookings — Admin" scope="request"/>
 <%@ include file="/WEB-INF/jsp/include/head.jspf" %>
-<%@ include file="/WEB-INF/jsp/include/navbar.jspf" %>
+<%@ include file="/WEB-INF/jsp/include/admin-navbar.jspf" %>
 
 <div class="lc-page">
     <div class="lc-container">

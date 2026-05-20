@@ -1,7 +1,9 @@
 package com.eventbooking.service;
 
 import com.eventbooking.model.Booking;
+import com.eventbooking.model.Customer;
 import com.eventbooking.util.BookingFileStore;
+import com.eventbooking.util.BookingProgressUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,6 +36,17 @@ public class BookingService {
             }
         }
         return Optional.empty();
+    }
+
+    /** Bookings for a signed-in account (by customerId, with phone/name fallback for older rows). */
+    public List<Booking> listForCustomer(Customer customer) throws IOException {
+        List<Booking> out = new ArrayList<>();
+        for (Booking b : store.readAll()) {
+            if (BookingProgressUtil.belongsToCustomer(b, customer)) {
+                out.add(b);
+            }
+        }
+        return out;
     }
 
     public List<Booking> search(String bookingIdQuery, String customerNameQuery) throws IOException {

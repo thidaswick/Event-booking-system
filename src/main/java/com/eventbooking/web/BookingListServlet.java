@@ -20,7 +20,11 @@ public class BookingListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!AdminSession.requireAdmin(request, response)) {
+            return;
+        }
         request.setCharacterEncoding("UTF-8");
+        request.setAttribute("adminBooking", true);
         BookingService service = AppContext.bookingService(getServletContext());
 
         String q = request.getParameter("q");

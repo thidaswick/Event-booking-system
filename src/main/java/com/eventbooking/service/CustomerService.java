@@ -42,6 +42,37 @@ public class CustomerService {
         return Optional.empty();
     }
 
+    public Optional<Customer> findByEmail(String email) throws IOException {
+        if (email == null || email.isBlank()) {
+            return Optional.empty();
+        }
+        String target = email.trim().toLowerCase();
+        for (Customer c : store.readAll()) {
+            if (c.getEmail() != null && c.getEmail().equalsIgnoreCase(target)) {
+                return Optional.of(c);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Verifies email + password against {@code customers.txt}.
+     */
+    public Optional<Customer> authenticate(String email, char[] password)
+            throws IOException, GeneralSecurityException {
+        Optional<Customer> found = findByEmail(email);
+        if (found.isEmpty() || password == null || password.length == 0) {
+            return Optional.empty();
+        }
+        Customer c = found.get();
+        byte[] salt = PasswordHasher.fromBase64(c.getSaltBase64());
+        byte[] expected = PasswordHasher.fromBase64(c.getPasswordHashBase64());
+        if (PasswordHasher.verify(password, salt, expected)) {
+            return Optional.of(c);
+        }
+        return Optional.empty();
+    }
+
     public List<Customer> search(String customerIdQuery, String textQuery) throws IOException {
         List<Customer> out = new ArrayList<>();
         for (Customer c : store.readAll()) {

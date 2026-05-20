@@ -14,6 +14,7 @@
                 <li><a href="${ctx}/index.jsp#about">About</a></li>
                 <li><a href="${ctx}/contacts/create">Contact</a></li>
                 <li><a href="${ctx}/contacts/list">Messages</a></li>
+                <li><a href="${ctx}/admin/login">Admin</a></li>
             </ul>
         </div>
         <div>

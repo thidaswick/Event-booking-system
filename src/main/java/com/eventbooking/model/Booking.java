@@ -17,6 +17,8 @@ public class Booking {
     private String serviceType; // e.g. Photography, Videography, Both
     private String packageName;
     private String specialNotes;
+    /** Registered account id (CU001) when booked while signed in. */
+    private String customerId;
 
     public Booking() {
         // default constructor for forms / frameworks
@@ -25,6 +27,13 @@ public class Booking {
     public Booking(String bookingId, String customerName, String phone, String eventType,
                    String eventDate, String location, String serviceType, String packageName,
                    String specialNotes) {
+        this(bookingId, customerName, phone, eventType, eventDate, location, serviceType,
+                packageName, specialNotes, null);
+    }
+
+    public Booking(String bookingId, String customerName, String phone, String eventType,
+                   String eventDate, String location, String serviceType, String packageName,
+                   String specialNotes, String customerId) {
         this.bookingId = bookingId;
         this.customerName = customerName;
         this.phone = phone;
@@ -34,6 +43,7 @@ public class Booking {
         this.serviceType = serviceType;
         this.packageName = packageName;
         this.specialNotes = specialNotes;
+        this.customerId = customerId;
     }
 
     /**
@@ -42,9 +52,9 @@ public class Booking {
     public static Booking fromTsvLine(String line) {
         String[] parts = line.split("\t", -1);
         if (parts.length < 9) {
-            throw new IllegalArgumentException("Line must have 9 tab-separated fields.");
+            throw new IllegalArgumentException("Line must have at least 9 tab-separated fields.");
         }
-        return new Booking(
+        Booking b = new Booking(
                 parts[0].trim(),
                 parts[1].trim(),
                 parts[2].trim(),
@@ -53,8 +63,10 @@ public class Booking {
                 parts[5].trim(),
                 parts[6].trim(),
                 parts[7].trim(),
-                parts[8].trim()
+                parts[8].trim(),
+                parts.length >= 10 ? parts[9].trim() : null
         );
+        return b;
     }
 
     /**
@@ -70,7 +82,8 @@ public class Booking {
                 safe(location),
                 safe(serviceType),
                 safe(packageName),
-                safe(specialNotes)
+                safe(specialNotes),
+                safe(customerId)
         );
     }
 
@@ -154,6 +167,14 @@ public class Booking {
         this.specialNotes = specialNotes;
     }
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
     /**
      * True if this booking matches search by id (exact, case-insensitive) or customer name (contains, case-insensitive).
      */
@@ -171,9 +192,10 @@ public class Booking {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Booking other)) {
+        if (!(o instanceof Booking)) {
             return false;
         }
+        Booking other = (Booking) o;
         return Objects.equals(bookingId, other.bookingId);
     }
 

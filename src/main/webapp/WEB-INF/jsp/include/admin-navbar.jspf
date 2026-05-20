@@ -1,0 +1,17 @@
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<c:if test="${empty ctx}">
+    <c:set var="ctx" value="${pageContext.request.contextPath}" scope="request"/>
+</c:if>
+<header class="lc-header lc-header--admin">
+    <div class="lc-container lc-header__inner">
+        <a class="lc-logo" href="${ctx}/admin/dashboard">LensCraft<span>Studio</span> <small style="font-size:0.65em;font-weight:600;opacity:0.75">Admin</small></a>
+        <nav class="lc-nav-panel" aria-label="Admin" style="display:flex;gap:1.25rem;flex-wrap:wrap">
+            <a href="${ctx}/admin/dashboard">Dashboard</a>
+            <a href="${ctx}/admin/customers">Customers</a>
+            <a href="${ctx}/bookings/list">Bookings</a>
+            <a href="${ctx}/contacts/list">Messages</a>
+            <a href="${ctx}/index.jsp">Public site</a>
+            <a class="lc-nav-signout" href="${ctx}/admin/logout">Sign out</a>
+        </nav>
+    </div>
+</header>

@@ -11,16 +11,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * READ: lists registered customers from {@code customers.txt}.
- */
-@WebServlet(name = "CustomerListServlet", urlPatterns = "/customers/list")
-public class CustomerListServlet extends HttpServlet {
+@WebServlet(name = "AdminCustomerListServlet", urlPatterns = "/admin/customers")
+public class AdminCustomerListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+        if (!AdminSession.requireAdmin(request, response)) {
+            return;
+        }
         CustomerService service = AppContext.customerService(getServletContext());
 
         String q = request.getParameter("q");
@@ -40,6 +39,7 @@ public class CustomerListServlet extends HttpServlet {
         request.setAttribute("customers", customers);
         request.setAttribute("q", q == null ? "" : q);
         request.setAttribute("searchActive", searchActive);
-        request.getRequestDispatcher("/WEB-INF/jsp/customers-list.jsp").forward(request, response);
+        request.setAttribute("pageTitle", "Manage customers — Admin");
+        request.getRequestDispatcher("/WEB-INF/jsp/admin/customers.jsp").forward(request, response);
     }
 }

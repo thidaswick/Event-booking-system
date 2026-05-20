@@ -20,7 +20,11 @@ public class BookingEditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!AdminSession.requireAdmin(request, response)) {
+            return;
+        }
         request.setCharacterEncoding("UTF-8");
+        request.setAttribute("adminBooking", true);
         String id = request.getParameter("bookingId");
         BookingService service = AppContext.bookingService(getServletContext());
         Optional<Booking> found = service.findById(id == null ? "" : id);
@@ -38,6 +42,9 @@ public class BookingEditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!AdminSession.requireAdmin(request, response)) {
+            return;
+        }
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("bookingId");
         if (id == null || id.isBlank()) {
@@ -62,6 +69,7 @@ public class BookingEditServlet extends HttpServlet {
     private static Booking readBooking(HttpServletRequest request, String bookingId) {
         Booking b = new Booking();
         b.setBookingId(bookingId);
+        b.setCustomerId(request.getParameter("customerId"));
         b.setCustomerName(request.getParameter("customerName"));
         b.setPhone(request.getParameter("phone"));
         b.setEventType(request.getParameter("eventType"));

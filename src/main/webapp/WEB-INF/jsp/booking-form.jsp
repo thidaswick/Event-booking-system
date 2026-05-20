@@ -2,12 +2,20 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <c:set var="pageTitle" value="${formTitle} — LensCraft Studio" scope="request"/>
 <%@ include file="/WEB-INF/jsp/include/head.jspf" %>
-<%@ include file="/WEB-INF/jsp/include/navbar.jspf" %>
+<c:choose>
+    <c:when test="${adminBooking}"><%@ include file="/WEB-INF/jsp/include/admin-navbar.jspf" %></c:when>
+    <c:otherwise><%@ include file="/WEB-INF/jsp/include/navbar.jspf" %></c:otherwise>
+</c:choose>
 
 <div class="lc-page">
     <div class="lc-container lc-form-wrap">
         <h1 class="lc-font-display" style="font-size:clamp(1.75rem,3vw,2.25rem);margin:0 0 0.5rem">${formTitle}</h1>
-        <p class="lc-muted" style="margin-bottom:1.75rem">Fields marked in the form are stored in your booking file (TSV).</p>
+        <p class="lc-muted" style="margin-bottom:1.75rem">
+            <c:choose>
+                <c:when test="${not empty sessionScope.customerId}">Booking will be linked to your account and shown on <a href="${ctx}/account">My account</a>.</c:when>
+                <c:otherwise>Fields are stored in <code>bookings.txt</code>. <a href="${ctx}/login">Sign in</a> to track bookings on your account.</c:otherwise>
+            </c:choose>
+        </p>
 
         <c:if test="${not empty error}">
             <div class="lc-alert lc-alert--danger">${error}</div>
@@ -17,6 +25,7 @@
 
         <div class="lc-panel">
             <form class="lc-form" method="post" action="${formAction}" novalidate>
+                <input type="hidden" name="customerId" id="customerId" value="${booking.customerId}">
                 <c:if test="${isEdit}">
                     <input type="hidden" name="bookingId" value="${booking.bookingId}">
                     <div class="lc-field">
@@ -26,12 +35,13 @@
                     </div>
                 </c:if>
 
+                <c:if test="${empty sessionScope.customerId}">
                 <div class="lc-field">
-                    <label for="registeredCustomer">Registered customer</label>
+                    <label for="registeredCustomer">Link to registered account</label>
                     <select id="registeredCustomer" class="lc-input" autocomplete="off" aria-describedby="registeredCustomerHint">
-                        <option value="">Select to fill name &amp; phone below, or type manually…</option>
+                        <option value="">Select account (optional)…</option>
                         <c:forEach var="cust" items="${customers}">
-                            <c:set var="custMatch" value="${isEdit and cust.fullName eq booking.customerName and cust.phone eq booking.phone}"/>
+                            <c:set var="custMatch" value="${booking.customerId eq cust.customerId or (isEdit and cust.fullName eq booking.customerName and cust.phone eq booking.phone)}"/>
                             <option value="<c:out value='${cust.customerId}'/>"
                                     data-fullname="<c:out value='${cust.fullName}'/>"
                                     data-phone="<c:out value='${cust.phone}'/>"
@@ -40,8 +50,9 @@
                             </option>
                         </c:forEach>
                     </select>
-                    <p class="lc-hint" id="registeredCustomerHint">Optional. Not saved on the booking row; only helps copy details from <a href="${ctx}/register">registered accounts</a>.</p>
+                    <p class="lc-hint" id="registeredCustomerHint">Links booking to that account dashboard.</p>
                 </div>
+                </c:if>
 
                 <div class="lc-field">
                     <label for="customerName">Customer name</label>
@@ -98,7 +109,11 @@
 
                 <div class="lc-form-actions">
                     <button class="lc-btn lc-btn--gold" type="submit">${isEdit ? 'Save changes' : 'Create booking'}</button>
-                    <a class="lc-btn--link" href="${ctx}/bookings/list" style="text-decoration:none;display:inline-flex;padding:0.5rem 0;font-weight:600;color:var(--muted-foreground)">Cancel</a>
+                    <c:choose>
+                        <c:when test="${adminBooking}"><a class="lc-btn--link" href="${ctx}/bookings/list" style="text-decoration:none;display:inline-flex;padding:0.5rem 0;font-weight:600;color:var(--muted-foreground)">Cancel</a></c:when>
+                        <c:when test="${not empty sessionScope.customerId}"><a class="lc-btn--link" href="${ctx}/account" style="text-decoration:none;display:inline-flex;padding:0.5rem 0;font-weight:600;color:var(--muted-foreground)">Cancel</a></c:when>
+                        <c:otherwise><a class="lc-btn--link" href="${ctx}/index.jsp" style="text-decoration:none;display:inline-flex;padding:0.5rem 0;font-weight:600;color:var(--muted-foreground)">Cancel</a></c:otherwise>
+                    </c:choose>
                 </div>
             </form>
         </div>
@@ -108,11 +123,18 @@
 <script>
     (function () {
         var sel = document.getElementById('registeredCustomer');
+        var customerIdEl = document.getElementById('customerId');
         if (sel) {
             sel.addEventListener('change', function () {
                 var o = sel.options[sel.selectedIndex];
                 if (!o || !o.value) {
+                    if (customerIdEl) {
+                        customerIdEl.value = '';
+                    }
                     return;
+                }
+                if (customerIdEl) {
+                    customerIdEl.value = o.value;
                 }
                 var name = o.getAttribute('data-fullname') || '';
                 var phone = o.getAttribute('data-phone') || '';
@@ -125,6 +147,9 @@
                     phoneEl.value = phone;
                 }
             });
+            if (sel.value && customerIdEl) {
+                customerIdEl.value = sel.value;
+            }
         }
     })();
     document.querySelector('form.lc-form').addEventListener('submit', function (e) {

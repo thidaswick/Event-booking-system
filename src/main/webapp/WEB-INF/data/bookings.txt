@@ -1,2 +1,3 @@
-# Tab-separated: bookingId, customerName, phone, eventType, eventDate, location, serviceType, packageName, specialNotes
-BK002	Ruwan Silva	0779876543	Corporate Gala	2026-06-01	Kandy	Videography	Cinematic Package	Include wireless lav mics for speeches.
+# Tab-separated: bookingId, customerName, phone, eventType, eventDate, location, serviceType, packageName, specialNotes, customerId
+BK002		0779876543	Corporate Gala	2026-06-01	Kandy	Videography	Cinematic Package	Include wireless lav mics for speeches.	
+BK003	Thidas Wickrmasinghe	0777958497	Wedding	2026-05-28	Colombo	Both	Essential Photos	please do it good	CU001

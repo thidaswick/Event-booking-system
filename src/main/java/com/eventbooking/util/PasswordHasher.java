@@ -44,4 +44,16 @@ public final class PasswordHasher {
     public static byte[] fromBase64(String b64) {
         return Base64.getDecoder().decode(b64.getBytes(StandardCharsets.UTF_8));
     }
+
+    public static boolean verify(char[] password, byte[] salt, byte[] expectedHash) throws GeneralSecurityException {
+        byte[] actual = derive(password, salt);
+        if (expectedHash.length != actual.length) {
+            return false;
+        }
+        int diff = 0;
+        for (int i = 0; i < expectedHash.length; i++) {
+            diff |= expectedHash[i] ^ actual[i];
+        }
+        return diff == 0;
+    }
 }

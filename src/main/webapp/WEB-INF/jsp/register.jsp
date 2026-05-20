@@ -20,7 +20,7 @@
         <c:if test="${param.created == '1'}">
             <div class="lc-alert lc-alert--success">
                 Welcome! Your account is ready<c:if test="${not empty param.id}"> (<c:out value="${param.id}"/>)</c:if>.
-                You can <a href="${ctx}/bookings/create">book a session</a>, view <a href="${ctx}/customers/list">all accounts</a>, or return <a href="${ctx}/index.jsp">home</a>.
+                Go to <a href="${ctx}/account">My account</a> to see your bookings, or <a href="${ctx}/bookings/create">book a session</a>.
             </div>
         </c:if>
 
